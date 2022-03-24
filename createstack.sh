@@ -1,6 +1,6 @@
 echo "Creating stack..."
 
-
+STACK_NAME="myriadbaseinfra"
 STACK_ID=$( \
   aws cloudformation create-stack \
   --stack-name ${STACK_NAME} \
