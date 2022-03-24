@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    4423084c-b947-4f2e-9a37-5431768fd5ea:
+      size:
+        width: 280
+        height: 210
+      position:
+        x: 124
+        'y': 111
+      z: 0
+      embeds:
+        - da3c1602-3f3a-490a-9cf1-999b18771d69
+        - ce8beecd-d972-4f85-babd-7bf4f369787c
+        - 059a0c55-4470-40c3-9f95-10dcf90d2e50
+    da3c1602-3f3a-490a-9cf1-999b18771d69:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 152
+        'y': 142
+      z: 1
+      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
+    ce8beecd-d972-4f85-babd-7bf4f369787c:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 240
+        'y': 140
+      z: 1
+      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
+    059a0c55-4470-40c3-9f95-10dcf90d2e50:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 200
+        'y': 230
+      z: 1
+      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
+    9492c5aa-4910-47f9-a3c1-20b5fe3c3d75:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 501
+        'y': 201
+      z: 0
+Resources:
+  R53HZJR9O:
+    Type: 'AWS::Route53::HostedZone'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 4423084c-b947-4f2e-9a37-5431768fd5ea
+  R53RS25X7H:
+    Type: 'AWS::Route53::RecordSet'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: da3c1602-3f3a-490a-9cf1-999b18771d69
+  R53RS51I2:
+    Type: 'AWS::Route53::RecordSet'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: ce8beecd-d972-4f85-babd-7bf4f369787c
+  R53RSX430:
+    Type: 'AWS::Route53::RecordSet'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 059a0c55-4470-40c3-9f95-10dcf90d2e50
+  CMC2BN7A:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9492c5aa-4910-47f9-a3c1-20b5fe3c3d75
