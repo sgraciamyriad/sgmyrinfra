@@ -1,81 +1,252 @@
-AWSTemplateFormatVersion: 2010-09-09
-Metadata:
-  'AWS::CloudFormation::Designer':
-    4423084c-b947-4f2e-9a37-5431768fd5ea:
-      size:
-        width: 280
-        height: 210
-      position:
-        x: 124
-        'y': 111
-      z: 0
-      embeds:
-        - da3c1602-3f3a-490a-9cf1-999b18771d69
-        - ce8beecd-d972-4f85-babd-7bf4f369787c
-        - 059a0c55-4470-40c3-9f95-10dcf90d2e50
-    da3c1602-3f3a-490a-9cf1-999b18771d69:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 152
-        'y': 142
-      z: 1
-      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
-    ce8beecd-d972-4f85-babd-7bf4f369787c:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 240
-        'y': 140
-      z: 1
-      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
-    059a0c55-4470-40c3-9f95-10dcf90d2e50:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 200
-        'y': 230
-      z: 1
-      parent: 4423084c-b947-4f2e-9a37-5431768fd5ea
-    9492c5aa-4910-47f9-a3c1-20b5fe3c3d75:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 501
-        'y': 201
-      z: 0
-Resources:
-  R53HZJR9O:
-    Type: 'AWS::Route53::HostedZone'
-    Properties: {}
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 4423084c-b947-4f2e-9a37-5431768fd5ea
-  R53RS25X7H:
-    Type: 'AWS::Route53::RecordSet'
-    Properties: {}
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: da3c1602-3f3a-490a-9cf1-999b18771d69
-  R53RS51I2:
-    Type: 'AWS::Route53::RecordSet'
-    Properties: {}
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: ce8beecd-d972-4f85-babd-7bf4f369787c
-  R53RSX430:
-    Type: 'AWS::Route53::RecordSet'
-    Properties: {}
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 059a0c55-4470-40c3-9f95-10dcf90d2e50
-  CMC2BN7A:
-    Type: 'AWS::CertificateManager::Certificate'
-    Properties: {}
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 9492c5aa-4910-47f9-a3c1-20b5fe3c3d75
+## Add route53 
+myDNSOne:
+  Type: AWS::Route53::RecordSetGroup
+  Properties:
+    HostedZoneName: example.com.
+    Comment: Weighted RR for my frontends.
+    RecordSets:
+    - Name: mysite.example.com.
+      Type: CNAME
+      TTL: '900'
+      SetIdentifier: Frontend One
+      Weight: '4'
+      ResourceRecords:
+      - example-ec2.amazonaws.com
+    - Name: mysite.example.com.
+      Type: CNAME
+      TTL: '900'
+      SetIdentifier: Frontend Two
+      Weight: '6'
+      ResourceRecords:
+      - example-ec2-larger.amazonaws.com
+
+
+## Add certificate
+Type: AWS::CertificateManager::Certificate
+Properties: 
+  CertificateAuthorityArn: String
+  CertificateTransparencyLoggingPreference: String
+  DomainName: String
+  DomainValidationOptions: 
+    - DomainValidationOption
+  SubjectAlternativeNames: 
+    - String
+  Tags: 
+    - Tag
+  ValidationMethod: String
+
+
+
+##GO CD AGENT IAM SET UP IN JSON
+# {
+#   "AWSTemplateFormatVersion": "2010-09-09",
+#   "Parameters": {
+#     "ClusterName": {
+#       "Description": "The name of the ECS cluster",
+#       "Type": "String",
+#       "Default": "GoCD"
+#     }
+#   },
+#   "Outputs": {
+#     "AccessKey": {
+#       "Value": {
+#         "Ref": "AccessKey"
+#       }
+#     },
+#     "SecretKey": {
+#       "Value": {
+#         "Fn::GetAtt": [
+#           "AccessKey",
+#           "SecretAccessKey"
+#         ]
+#       }
+#     },
+#     "GoCDEC2OptimizedRole": {
+#       "Value": {
+#         "Fn::GetAtt": [
+#           "GoCDEC2OptimizedRole",
+#           "Arn"
+#         ]
+#       }
+#     },
+#     "GoCDEC2OptimizedInstanceProfile": {
+#       "Value": {
+#         "Fn::GetAtt": [
+#           "GoCDEC2OptimizedInstanceProfile",
+#           "Arn"
+#         ]
+#       }
+#     }
+#   },
+#   "Resources": {
+#     "GoCDECSCluster": {
+#       "Type": "AWS::ECS::Cluster",
+#       "Properties": {
+#         "ClusterName": {
+#           "Ref": "ClusterName"
+#         }
+#       }
+#     },
+#     "AccessKey": {
+#       "Type": "AWS::IAM::AccessKey",
+#       "Properties": {
+#         "UserName": {
+#           "Ref": "GoCDECSPluginUser"
+#         }
+#       }
+#     },
+#     "GoCDECSPluginUser": {
+#       "Type": "AWS::IAM::User",
+#       "Properties": {
+#         "Policies": [
+#           {
+#             "PolicyName": "ManageEC2Instances",
+#             "PolicyDocument": {
+#               "Version": "2012-10-17",
+#               "Statement": [
+#                 {
+#                   "Effect": "Allow",
+#                   "Action": [
+#                     "ec2:runInstances",
+#                     "ec2:createTags",
+#                     "ec2:terminateInstances",
+#                     "ec2:describeInstances",
+#                     "ec2:describeSubnets",
+#                     "ec2:createVolume",
+#                     "ec2:attachVolume",
+#                     "ec2:stopInstances",
+#                     "ec2:startInstances",
+#                     "ec2:deleteTags",
+#                     "iam:PassRole",
+#                     "iam:GetRole"
+#                   ],
+#                   "Resource": [
+#                     "*"
+#                   ]
+#                 }
+#               ]
+#             }
+#           },
+#           {
+#             "PolicyName": "ManageECSInstances",
+#             "PolicyDocument": {
+#               "Version": "2012-10-17",
+#               "Statement": [
+#                 {
+#                   "Effect": "Allow",
+#                   "Action": [
+#                     "ecs:describeClusters",
+#                     "ecs:deregisterContainerInstance",
+#                     "ecs:describeContainerInstances",
+#                     "ecs:listContainerInstances",
+#                     "ecs:registerTaskDefinition",
+#                     "ecs:deregisterTaskDefinition",
+#                     "ecs:startTask",
+#                     "ecs:stopTask",
+#                     "ecs:listTasks",
+#                     "ecs:describeTasks",
+#                     "ecs:describeTaskDefinition"
+#                   ],
+#                   "Resource": [
+#                     "*"
+#                   ]
+#                 }
+#               ]
+#             }
+#           }
+#         ]
+#       }
+#     },
+#     "GoCDEC2OptimizedRole": {
+#       "Type": "AWS::IAM::Role",
+#       "Properties": {
+#         "AssumeRolePolicyDocument": {
+#           "Statement": {
+#             "Effect": "Allow",
+#             "Principal": {
+#               "Service": [
+#                 "ec2.amazonaws.com"
+#               ]
+#             },
+#             "Action": [
+#               "sts:AssumeRole"
+#             ]
+#           }
+#         },
+#         "Policies": [
+#           {
+#             "PolicyName": "AllowECSAgentToManageContainers",
+#             "PolicyDocument": {
+#               "Version": "2012-10-17",
+#               "Statement": [
+#                 {
+#                   "Effect": "Allow",
+#                   "Action": [
+#                     "ecs:describeClusters",
+#                     "ecs:discoverPollEndpoint",
+#                     "ecs:registerContainerInstance",
+#                     "ecs:deregisterContainerInstance",
+#                     "ecs:poll",
+#                     "ecs:startTelemetrySession",
+#                     "ecs:submitContainerStateChange",
+#                     "ecs:submitTaskStateChange",
+#                     "logs:CreateLogStream",
+#                     "logs:PutLogEvents"
+#                   ],
+#                   "Resource": [
+#                     "*"
+#                   ]
+#                 }
+#               ]
+#             }
+#           }
+#         ]
+#       }
+#     },
+#     "GoCDEC2OptimizedInstanceProfile": {
+#       "Type": "AWS::IAM::InstanceProfile",
+#       "Properties": {
+#         "Roles": [
+#           {
+#             "Ref": "GoCDEC2OptimizedRole"
+#           }
+#         ]
+#       }
+#     }
+#   }
+# }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Type: AWS::Route53::RecordSet
+# Properties: 
+#   AliasTarget: 
+#     AliasTarget
+#   Comment: String
+#   Failover: String
+#   GeoLocation: 
+#     GeoLocation
+#   HealthCheckId: String
+#   HostedZoneId: String
+#   HostedZoneName: String
+#   MultiValueAnswer: Boolean
+#   Name: String
+#   Region: String
+#   ResourceRecords: 
+#     - String
+#   SetIdentifier: String
+#   TTL: String
+#   Type: String
+#   Weight: Integer
