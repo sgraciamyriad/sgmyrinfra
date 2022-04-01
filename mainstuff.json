@@ -44,9 +44,7 @@
             
          }
       },
-
-         "Resources" : {
-            "myDNSRecord" : {
+            "Dnsrecord" : {
                "Type" : "AWS::Route53::RecordSet",
                "Properties" : {
                   "HostedZoneId" : "Z02012991WL7J5Z9LFA2X",
@@ -55,12 +53,11 @@
                      "192.0.2.99"
                   ],
                   "Type" : "CNAME"
-               }
+               },
+               "DependsOn" : "DNS"
             }
          }
       } 
-   
-   }
 
 
  
