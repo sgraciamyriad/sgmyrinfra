@@ -7,7 +7,7 @@ STACK_NAME="myriadbaseinfra"
 STACK_ID=$( \
   aws cloudformation create-stack \
   --stack-name ${STACK_NAME} \
-  --template-body main.yaml
+  --template-body mainstuff.json
 )
 
 
