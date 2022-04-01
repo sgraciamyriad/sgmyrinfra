@@ -21,7 +21,7 @@ myDNSOne:
       - example-ec2-larger.amazonaws.com
 
 
-## Add certificate
+## Add certificate (2 certs)
 Type: AWS::CertificateManager::Certificate
 Properties: 
   CertificateAuthorityArn: String
@@ -36,6 +36,18 @@ Properties:
   ValidationMethod: String
 
 
+Type: AWS::CertificateManager::Certificate
+Properties: 
+  CertificateAuthorityArn: String
+  CertificateTransparencyLoggingPreference: String
+  DomainName: String
+  DomainValidationOptions: 
+    - DomainValidationOption
+  SubjectAlternativeNames: 
+    - String
+  Tags: 
+    - Tag
+  ValidationMethod: String
 
 
 
@@ -64,3 +76,8 @@ Properties:
 #   TTL: String
 #   Type: String
 #   Weight: Integer
+
+
+
+
+

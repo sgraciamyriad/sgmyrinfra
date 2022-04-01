@@ -1,0 +1,34 @@
+{ 
+   "Resources":{
+   "DNS": {
+      "Type": "AWS::Route53::HostedZone",
+      "Properties": {
+         "HostedZoneConfig": {
+            "Comment": "genomics-sandbox.aws.myriad.com"
+         },
+         "Name": "genomics-sandbox.aws.myriad.com",
+         "HostedZoneTags": [
+            {
+               "Key": "SampleKey1",
+               "Value": "SampleValue1"
+            },
+            {
+               "Key": "SampleKey2",
+               "Value": "SampleValue2"
+            }
+         ],
+         "VPCs": [
+            {
+               "VPCId": "vpc-0211951d52e9eb4e6",
+               "VPCRegion": "us-west-2"
+            },
+            {
+               "VPCId": "vpc-0211951d52e9eb4e6",
+               "VPCRegion": "us-west-2"
+            }
+         ]
+         
+      }
+   }
+}
+}

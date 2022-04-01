@@ -1,0 +1,66 @@
+{
+    "Resources":{
+       "cert1":{
+          "Type": "AWS::CertificateManager::Certificate",
+          "Properties":{
+             "DomainName": "*.genomics-sandbox.aws.myriad.com",
+             "ValidationMethod": "DNS"
+          }
+       },
+       "cert2":{
+           "Type": "AWS::CertificateManager::Certificate",
+           "Properties":{
+               "DomainName": "*.aws.counsyl.com",
+               "ValidationMethod": "DNS"
+               }
+       },
+       "DNS": {
+         "Type": "AWS::Route53::HostedZone",
+         "Properties": {
+            "HostedZoneConfig": {
+               "Comment": "genomics-sandbox.aws.myriad.com"
+            },
+            "Name": "genomics-sandbox.aws.myriad.com",
+            "HostedZoneTags": [
+               {
+                  "Key": "SampleKey1",
+                  "Value": "SampleValue1"
+               },
+               {
+                  "Key": "SampleKey2",
+                  "Value": "SampleValue2"
+               }
+            ],
+            "VPCs": [
+               {
+                  "VPCId": "vpc-0211951d52e9eb4e6",
+                  "VPCRegion": "us-west-2"
+               },
+               {
+                  "VPCId": "vpc-0211951d52e9eb4e6",
+                  "VPCRegion": "us-west-2"
+               }
+            ]
+            
+         }
+      },
+
+         "Resources" : {
+            "myDNSRecord" : {
+               "Type" : "AWS::Route53::RecordSet",
+               "Properties" : {
+                  "HostedZoneId" : "Z02012991WL7J5Z9LFA2X",
+                  "Name" : "test.example.com",
+                  "ResourceRecords" : [
+                     "192.0.2.99"
+                  ],
+                  "Type" : "CNAME"
+               }
+            }
+         }
+      } 
+   
+   }
+
+
+ 

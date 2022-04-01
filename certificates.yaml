@@ -1,0 +1,16 @@
+Resources: 
+  Cert1: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: "genomics-sandbox.aws.myriad.com"
+    
+      ValidationMethod: DNS
+
+  Cert2: 
+    Type: "AWS::CertificateManager::Certificate"
+    Properties: 
+      DomainName: "aws.counsyl.com"
+      DomainValidationOptions:
+            - DomainName: "aws.counsyl.com"
+              HostedZoneId: "Z076325236HU9HX5LHAL5"
+      ValidationMethod: DNS
