@@ -22,3 +22,6 @@ echo "Waiting on ${STACK_ID} create completion..."
 aws cloudformation wait stack-create-complete --stack-name ${STACK_ID}
 aws cloudformation describe-stacks --stack-name ${STACK_ID} 
 aws cloudformation list-stack-resources --stack-name myriadbaseinfra
+
+
+vault list auth/aws/config/sts/
