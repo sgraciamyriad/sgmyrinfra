@@ -1,19 +1,22 @@
 {
-    "Resources":{
-       "cert1":{
+    "Resources": {
+
+       "cert1": {
           "Type": "AWS::CertificateManager::Certificate",
           "Properties":{
              "DomainName": "*.genomics-sandbox.aws.myriad.com",
              "ValidationMethod": "DNS"
           }
        },
-       "cert2":{
+
+       "cert2": {
            "Type": "AWS::CertificateManager::Certificate",
            "Properties":{
                "DomainName": "*.aws.counsyl.com",
                "ValidationMethod": "DNS"
                }
        },
+
        "DNS": {
          "Type": "AWS::Route53::HostedZone",
          "Properties": {
@@ -31,7 +34,8 @@
                   "Value": "SampleValue2"
                }
             ],
-            "VPCs": [
+
+         "VPCs":[
                {
                   "VPCId": "vpc-0211951d52e9eb4e6",
                   "VPCRegion": "us-west-2"
@@ -39,9 +43,83 @@
             ]
             
          }
-      }
+      },
+
+         "MyVaultTestRole": {
+                 "Type": "AWS::IAM::Role",
+                 "Properties": {
+                     "AssumeRolePolicyDocument": {
+                         "Version": "2012-10-17",
+                         "Statement": [
+                           {
+                             "Effect": "Allow",
+                             "Principal": {
+                               "AWS": "arn:aws:iam::896552222739:root"
+                             },
+                             "Action": "sts:AssumeRole",
+                             "Condition": {}
+                           }
+                         ]
+                     },
+                     "Description": "Role to provide access to S3",
+                     "Policies": [
+                         {
+                             "PolicyName": "EmbeddedInlinePolicy",
+                             "PolicyDocument": {
+                                 "Version": "2012-10-17",
+                                 "Statement": [
+                                     {
+                                         "Effect": "Allow",
+                                         "Action": "cloudformation:*",
+                                         "Resource": "*"
+                                     }
+                                 ]
+                             }
+                         }
+                     ],
+                     "ManagedPolicyArns": [
+                         "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+                     ],
+                     "RoleName": "LambdaS3Access"
+                 }
+             },
+
+             "VaultPolicy": {
+                 "Type": "AWS::IAM::Policy",
+                 "Properties": {
+                     "PolicyDocument": {
+                         "Version": "2012-10-17",
+                         "Statement": [
+                           {
+                               "Sid": "VisualEditor0",
+                               "Effect": "Allow",
+                               "Action": "ec2:DescribeInstances",
+                               "Resource": "*"
+                           },
+                           {
+                               "Sid": "VisualEditor1",
+                               "Effect": "Allow",
+                               "Action": "iam:GetInstanceProfile",
+                               "Resource": "arn:aws:iam::*:instance-profile/*"
+                           },
+                           {
+                               "Sid": "GetRole",
+                               "Effect": "Allow",
+                               "Action": "iam:GetRole",
+                               "Resource": "arn:aws:iam::*:role/*"
+                           }
+                       ]
+                     },
+                     "PolicyName": "VaultPolicy",
+                     "Roles": [
+                         {
+                             "Ref": "MyVaultTestRole"
+                         }
+                     ]
+                 }
+             }
          }
-      } 
+     } 
 
 
  
