@@ -35,27 +35,11 @@
                {
                   "VPCId": "vpc-0211951d52e9eb4e6",
                   "VPCRegion": "us-west-2"
-               },
-               {
-                  "VPCId": "vpc-0211951d52e9eb4e6",
-                  "VPCRegion": "us-west-2"
                }
             ]
             
          }
-      },
-            "Dnsrecord" : {
-               "Type" : "AWS::Route53::RecordSet",
-               "Properties" : {
-                  "HostedZoneId" : "Z02012991WL7J5Z9LFA2X",
-                  "Name" : "test.example.com",
-                  "ResourceRecords" : [
-                     "192.0.2.99"
-                  ],
-                  "Type" : "CNAME"
-               },
-               "DependsOn" : "DNS"
-            }
+      }
          }
       } 
 
