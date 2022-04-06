@@ -16,7 +16,7 @@ MAIN GOAL: Automate the creation of infrastructure in AWS Accounts
 
 # Design/Implementation
 Req#1 
-Inside of mainstuff.json
+In mainstuff.json
 
 Req#2
 In mainstuff.json 
