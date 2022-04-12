@@ -1,0 +1,4 @@
+
+[automationuser]
+aws_access_key_id = AKIA5YAE5L2JCUMOKRIN
+aws_secret_access_key = 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

@@ -6,7 +6,7 @@ MAIN GOAL: Automate the creation of infrastructure in AWS Accounts
 - There will be room for VPC creation in some capacity. More infra to be added. 
 
 # Requirements
-Create all of these pieces of infrastructure in cloudformation/cloud cdk:
+Create all of these pieces of infrastructure in cloudformation:
 
 1. Route53 - a common zone and connected to all other VPCs 
 2. SSL certificate 
@@ -30,4 +30,12 @@ Create all of these pieces of infrastructure in cloudformation/cloud cdk:
 
 ### Req#5
 - In progress in mainstuff.json
+
+# Instructions
+
+1. Open the profile.txt file and add in a block for the necessary profile 
+for the particular account you will be deploying the baseline infrastructure to. The format/template is laid out for you already. Simply add the name of the profile, access key and secret access key. Save this.
+2. CD/Navigate to createstack.sh script
+3. run `./createstack.sh`
+4. The script will add a new profile to your aws credentials file necessary to access the specified account. It will then create a cloudformation stack which will produce 2 certificates, a DNS hosted zone, a role and policy for access to VAULT. 
 
