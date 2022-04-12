@@ -20,4 +20,4 @@ aws cloudformation list-stack-resources --stack-name myriadbaseinfra
 
 
 # This command will delete the stack if errors occur or you need to roll back  
-# aws cloudformation delete-stack --stack-name ${STACK_ID}
+# aws cloudformation delete-stack --stack-name myriadbaseinfra
