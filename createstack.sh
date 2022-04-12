@@ -7,16 +7,10 @@ STACK_NAME="myriadbaseinfra"
 STACK_ID=$( \
   aws cloudformation create-stack \
   --stack-name ${STACK_NAME} \
-  --template-body mainstuff.json
+  --template-body file://mainstuff.json \
+  --capabilities CAPABILITY_NAMED_IAM 
 )
 
-
-# aws cloudformation create-stack \
-#   --stack-name ${STACK_NAME} \
-#   --template-body file://${DIR}/cron-batch-stack.yml \
-#   --capabilities CAPABILITY_IAM \
-#   --parameters file://${DIR}/parameters.json \
-#   --tags file://${DIR}/tags.json \
 
 echo "Waiting on ${STACK_ID} create completion..."
 aws cloudformation wait stack-create-complete --stack-name ${STACK_ID}
@@ -24,4 +18,6 @@ aws cloudformation describe-stacks --stack-name ${STACK_ID}
 aws cloudformation list-stack-resources --stack-name myriadbaseinfra
 
 
-vault list auth/aws/config/sts/
+
+# This command will delete the stack if errors occur or you need to roll back  
+# aws cloudformation delete-stack --stack-name ${STACK_ID}

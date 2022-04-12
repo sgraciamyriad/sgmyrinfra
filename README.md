@@ -6,6 +6,7 @@ MAIN GOAL: Automate the creation of infrastructure in AWS Accounts
 - There will be room for VPC creation in some capacity. More infra to be added. 
 
 # Requirements
+Create all of these pieces of infrastructure in cloudformation/cloud cdk:
 
 1. Route53 - a common zone and connected to all other VPCs 
 2. SSL certificate 
@@ -15,19 +16,18 @@ MAIN GOAL: Automate the creation of infrastructure in AWS Accounts
 
 
 # Design/Implementation
-Req#1 
-In mainstuff.json
+### Req#1 
+- Exists as cloudformation in mainstuff.json
 
-Req#2
-In mainstuff.json 
+### Req#2
+- Exists as cloudformation in mainstuff.json 
 
-Req#3
-Does not exist yet
+### Req#3
+- Does not exist yet
 
-Req#4
-In progress in mainstuff.json
-IAM role a
+### Req#4
+- Exists as cloudformation in mainstuff.json
 
-Req#5
-In progress in mainstuff.json
+### Req#5
+- In progress in mainstuff.json
 
