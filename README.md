@@ -33,9 +33,10 @@ Create all of these pieces of infrastructure in cloudformation:
 
 # Instructions
 
-1. Open the profile.txt file and add in a block for the necessary profile 
-for the particular account you will be deploying the baseline infrastructure to. The format/template is laid out for you already. Simply add the name of the profile, access key and secret access key. Save this.
+1. Open the .aws/credentials file and add in a block for the necessary profile for the particular account you will be deploying the baseline infrastructure to. The format/template is laid out for you already. Simply add the name of the profile, access key and secret access key. Save this and then run `aws config` to confirm that the credentials you want to use are saved.
 2. CD/Navigate to createstack.sh script
 3. run `./createstack.sh`
-4. The script will add a new profile to your aws credentials file necessary to access the specified account. It will then create a cloudformation stack which will produce 2 certificates, a DNS hosted zone, a role and policy for access to VAULT. 
+4. The script will then create the infrastructure listed above as individual pieces of a stack called 'myriadbaseinfra'. 
+5. Navigate over to the Cloudformation console in AWS and you will see a new stack created.
+6. The stack itself will stay in a pending state because the certificates will not immediately be validated. The other pieces will be successfully created. 
 
